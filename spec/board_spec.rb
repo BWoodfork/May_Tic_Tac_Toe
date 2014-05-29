@@ -52,4 +52,13 @@ describe Board do
     board.fill_space(0, 'x')
     board.full?.should == false
   end
+
+  it "lists all the spaces" do
+    board = Board.new(1)
+    board.spaces.should == [nil]
+
+    board = Board.new(2)
+    board.fill_space(1, 'T')
+    board.spaces.should == [nil, 'T', nil, nil]
+  end
 end
