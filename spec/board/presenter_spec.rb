@@ -11,9 +11,16 @@ describe Board::Presenter::Console do
       Board::Presenter::Console.present(board).should == "x\n"
     end
 
-    it "prints space separators for boards that have more than one space" do
-      board = Board.new(2)
-      Board::Presenter::Console.present(board).should == " | \n---\n | \n"
+    context "prints space separators for boards that have more than one space" do
+      it "for 2X2 boards" do
+        board = Board.new(4)
+        Board::Presenter::Console.present(board).should == " | \n---\n | \n"
+      end
+
+      it "for 3X3 boards" do
+        board = Board.new(9)
+        Board::Presenter::Console.present(board).should == " | | \n-----\n | | \n-----\n | | \n"
+      end
     end
   end
 end

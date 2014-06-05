@@ -4,8 +4,8 @@ class Board
 
   attr_reader :size
 
-  def initialize(length = 3)
-    @size = length * length
+  def initialize(size)
+    @size = size
     @board_state = Array.new(@size)
   end
 

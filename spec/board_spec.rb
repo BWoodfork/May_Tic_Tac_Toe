@@ -1,23 +1,16 @@
 require 'board'
 
 describe Board do
-  it "has 9 spaces for a 3X3 board" do
-    board = Board.new(3)
+  it "sets the number of spaces when initialized" do
+    board = Board.new(9)
     board.size.should == 9
-  end
 
-  it "has 16 spaces for a 4X4 board" do
-    board = Board.new(4)
+    board = Board.new(16)
     board.size.should == 16
   end
 
-  it "has 9 spaces and is a 3X3 board by default" do
-    board = Board.new
-    board.size.should == 9
-  end
-
   context "filling and getting spaces" do
-    let(:board) { Board.new }
+    let(:board) { Board.new(10) }
 
     it "fills a space with a string, given a valid location" do
       board.fill_space(1, 'x')
@@ -57,7 +50,7 @@ describe Board do
     board = Board.new(1)
     board.spaces.should == [nil]
 
-    board = Board.new(2)
+    board = Board.new(4)
     board.fill_space(1, 'T')
     board.spaces.should == [nil, 'T', nil, nil]
   end
