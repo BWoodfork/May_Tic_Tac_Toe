@@ -8,19 +8,20 @@ describe Game do
     @board = TicTacToeBoard.new
     @ui = UI.new(@output, @board)
     @game = Game.new(@board, @ui)
+    @factory = PlayerFactory.new
   end
 
   context "players" do
     it "current player is player 1 by default" do
-      @game.current_player.should == @game.get_players[0]
+      @game.current_player(@factory).should == @factory.find_players[0]
     end
 
     it "alternates players" do
       @game.take_turn
-      @game.current_player.should == @game.get_players[1]
+      @game.current_player(@factory).should == @factory.find_players[1]
 
-      @game.take_turn
-      @game.current_player.should == @game.get_players[0]
+      @game.take_turn 
+      @game.current_player(@factory).should == @factory.find_players[0]
     end
   end
 

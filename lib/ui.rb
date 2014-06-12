@@ -18,8 +18,6 @@ class UI
     gets.chomp
   end
 
-  #alias :get_move :receive_message
-
   def get_move(board)
     gets.chomp
   end

@@ -12,13 +12,12 @@ class Game
   end
 
   def run(factory)
-    factory.setup_players
     while !@board.game_over?
-      puts Board::Presenter::Console.present(@board)
-      move = @ui.get_move(@board).to_i
-      @board.fill_space(move, current_player(factory).token)
+      Board::Presenter::Console.print_board(@board)
+      make_move(factory)
       take_turn
     end
+      Board::Presenter::Console.print_board(@board)
   end
 
   def current_player(factory)
@@ -30,6 +29,11 @@ class Game
   end
 
   private
+
+  def make_move(factory)
+    move = @ui.get_move(@board).to_i
+    @board.fill_space(move, current_player(factory).token)
+  end
 
   def player_that_is_up
     @turns_taken.even? ? 0 : 1

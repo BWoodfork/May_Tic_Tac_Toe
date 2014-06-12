@@ -4,10 +4,14 @@ require 'game'
 require 'board'
 require 'ui'
 require 'board/presenter'
+require 'player_factory'
 
 
 board = TicTacToeBoard.new
 ui = UI.new(io = Kernel, board)
 game = Game.new(board, ui)
+factory = PlayerFactory.new
 
-game.run(PlayerFactory.new)
+
+factory.setup_players
+game.run(factory)
