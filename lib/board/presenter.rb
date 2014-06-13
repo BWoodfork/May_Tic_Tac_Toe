@@ -41,11 +41,6 @@ class Board
       def self.spot_to_string(spot)
         spot || " "
       end
-
-      def self.print_board(board)
-        puts present(board)
-      end
-
       private_class_method :spot_to_string
     end
   end

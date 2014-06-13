@@ -1,9 +1,3 @@
-require 'tic_tac_toe_board'
-require 'player_factory'
-require 'board/presenter'
-require 'ui'
-require 'player_factory'
-
 class Game
   def initialize(board, ui)
     @board = board
@@ -13,11 +7,11 @@ class Game
 
   def run(factory)
     while !@board.game_over?
-      Board::Presenter::Console.print_board(@board)
+      @ui.print_board(@board)
       make_move(factory)
       take_turn
     end
-      Board::Presenter::Console.print_board(@board)
+      @ui.print_board(@board)
   end
 
   def current_player(factory)
@@ -31,7 +25,7 @@ class Game
   private
 
   def make_move(factory)
-    move = @ui.get_move(@board).to_i
+    move = @ui.receive_message.to_i
     @board.fill_space(move, current_player(factory).token)
   end
 

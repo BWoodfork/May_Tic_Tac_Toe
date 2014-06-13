@@ -6,7 +6,7 @@ require 'player'
 describe Game do
   before(:each) do
     @board = TicTacToeBoard.new
-    @ui = UI.new(@output, @board)
+    @ui = UI.new
     @game = Game.new(@board, @ui)
     @factory = PlayerFactory.new
   end
@@ -20,7 +20,7 @@ describe Game do
       @game.take_turn
       @game.current_player(@factory).should == @factory.find_players[1]
 
-      @game.take_turn 
+      @game.take_turn
       @game.current_player(@factory).should == @factory.find_players[0]
     end
   end
