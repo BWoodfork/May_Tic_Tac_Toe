@@ -64,9 +64,9 @@ describe TicTacToeBoard do
       board.game_over?.should == true
 
       board = TicTacToeBoard.new(3)
-      board.fill_space(0, 'O')
+      board.fill_space(2, 'O')
       board.fill_space(4, 'O')
-      board.fill_space(8, 'O')
+      board.fill_space(6, 'O')
       board.game_over?.should == true
     end
 
@@ -88,6 +88,9 @@ describe TicTacToeBoard do
     board.fill_space(1, 'O')
     board.fill_space(2, 'O')
     board.winner.should == 'O'
+
+    board = TicTacToeBoard.new
+    board.winner.should == nil
   end
 
   context "fills the space with a valid piece" do

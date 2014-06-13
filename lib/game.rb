@@ -1,21 +1,33 @@
 class Game
-  def initialize(board, ui)
+  attr_reader :turns_taken
+
+  def initialize(board, ui, factory)
     @board = board
-    @turns_taken = 0
     @ui = ui
+    @factory = factory
+    @turns_taken = 0
   end
 
-  def run(factory)
+  def run
+    @factory.setup_players
+
     while !@board.game_over?
       @ui.print_board(@board)
-      make_move(factory)
+      make_move
       take_turn
     end
-      @ui.print_board(@board)
+
+    @ui.print_board(@board)
+
+    if @board.winner.nil?
+      @ui.send_message "Nobody wins this game"
+    else
+      @ui.send_message "#{@board.winner} is the winner"
+    end
   end
 
-  def current_player(factory)
-    factory.find_players[player_that_is_up]
+  def current_player
+    @factory.find_players[player_that_is_up]
   end
 
   def take_turn
@@ -24,9 +36,9 @@ class Game
 
   private
 
-  def make_move(factory)
+  def make_move
     move = @ui.receive_message.to_i
-    @board.fill_space(move, current_player(factory).token)
+    @board.fill_space(move, current_player.token)
   end
 
   def player_that_is_up

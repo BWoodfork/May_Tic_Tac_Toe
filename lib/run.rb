@@ -8,9 +8,8 @@ require 'player_factory'
 
 board = TicTacToeBoard.new
 ui = UI.new
-game = Game.new(board, ui)
 factory = PlayerFactory.new
+game = Game.new(board, ui, factory)
 
 
-factory.setup_players
-game.run(factory)
+game.run

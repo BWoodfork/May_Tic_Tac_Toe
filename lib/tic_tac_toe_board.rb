@@ -83,6 +83,8 @@ class TicTacToeBoard < Board
     @board_state.each_with_index do |space, space_number|
       if space_number == 0
         left_to_right << space
+      elsif space_number == @size - 1
+        left_to_right << space
       else
         left_to_right << space if space_number % (@length + 1) == 0
         right_to_left << space if space_number % (@length - 1) == 0
