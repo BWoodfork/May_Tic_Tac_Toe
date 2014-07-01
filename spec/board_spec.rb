@@ -21,16 +21,16 @@ describe Board do
       board.fill_space(1, 'x')
       lambda {
         board.fill_space(1, 'o')
-      }.should raise_error(Board::FullSpace)
+      }.should raise_error(Board::MoveError)
     end
 
     it "raises an exception if the space being filled doesn't exist" do
       lambda {
         board.fill_space(999, 'x')
-      }.should raise_error(Board::InvalidSpace)
+      }.should raise_error(Board::MoveError)
       lambda {
         board.fill_space(-5, 'x')
-      }.should raise_error(Board::InvalidSpace)
+      }.should raise_error(Board::MoveError)
     end
   end
 

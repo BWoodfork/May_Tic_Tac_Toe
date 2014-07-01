@@ -1,6 +1,5 @@
 class Board
-  class FullSpace < Exception ; end
-  class InvalidSpace < Exception ; end
+  class MoveError < Exception ; end
 
   attr_reader :size
 
@@ -29,8 +28,10 @@ class Board
   private
 
   def validate_move(space_number)
-    raise InvalidSpace.new if space_number >= @size
-    raise InvalidSpace.new if space_number < 0
-    raise FullSpace.new unless @board_state[space_number].nil?
+    begin
+      raise MoveError.new("Space is Invalid!") if space_number >= @size
+      raise MoveError.new("Space is Invalid!") if space_number < 0
+      raise MoveError.new("Space is Full Bro!") unless @board_state[space_number].nil?
+    end
   end
 end

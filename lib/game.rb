@@ -13,8 +13,12 @@ class Game
 
     while !@board.game_over?
       @ui.print_board(@board)
-      make_move
-      take_turn
+      begin
+        make_move
+        take_turn
+      rescue Board::MoveError => error
+        puts error.message
+      end
     end
 
     @ui.print_board(@board)
@@ -34,12 +38,12 @@ class Game
     @turns_taken += 1
   end
 
-  private
-
   def make_move
     move = @ui.receive_message.to_i
     @board.fill_space(move, current_player.token)
   end
+
+  private
 
   def player_that_is_up
     @turns_taken.even? ? 0 : 1
