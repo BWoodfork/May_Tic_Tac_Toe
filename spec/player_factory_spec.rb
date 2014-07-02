@@ -1,5 +1,6 @@
 require 'player_factory'
 require 'player'
+require 'easy_ai'
 
 describe PlayerFactory do
   before(:each) do

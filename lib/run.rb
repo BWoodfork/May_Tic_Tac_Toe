@@ -8,7 +8,7 @@ require 'player_factory'
 
 board = TicTacToeBoard.new
 ui = UI.new
-factory = PlayerFactory.new
+factory = PlayerFactory.new(board)
 game = Game.new(board, ui, factory)
 
 

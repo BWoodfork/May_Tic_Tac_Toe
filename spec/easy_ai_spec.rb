@@ -1,18 +1,21 @@
-# require 'easy_ai'
-# require 'tic_tac_toe_board'
+require 'easy_ai'
+require 'tic_tac_toe_board'
 
-# describe EasyAI do
-#   before(:each) do
-#     @ai = EasyAI.new("X", @board)
-#   end
+describe EasyAI do
+  board = TicTacToeBoard.new
+  ai = EasyAI.new(board)
+  
+  it "should have an easy AI" do
+    ai.class.should == EasyAI
+  end
 
-#   it "should create an ai with a token" do
-#     @ai.token.should == "X"
-#   end
+  it "should pick the first empty spot" do
+    board = [nil, nil, nil, nil, nil, nil, nil, nil, nil]  
+    ai.pick_a_spot.should == 0
+  end
 
-#   it "should pick an empty space on board" do
-#     board = TicTacToeBoard.new(3)
-#     @ai.pick_a_spot
-#     @ai.pick_a_spot(board).should 
-#   end
-# end
+  it "should pick the next empty spot" do
+    board = ["o", nil, nil, nil, nil, nil, nil, nil, nil]
+    ai.pick_a_spot.should == 1
+  end
+end
