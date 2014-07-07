@@ -1,6 +1,7 @@
 require 'game'
 require 'tic_tac_toe_board'
 require 'player_factory'
+require 'ui'
 
 class MockUI
   def send_message(message)
@@ -17,8 +18,10 @@ describe Game do
   before(:each) do
     @board = TicTacToeBoard.new
     @mock_ui = MockUI.new
-    @factory = PlayerFactory.new
-    @game = Game.new(@board, @mock_ui, @factory)
+    @ui = UI.new
+    @factory = PlayerFactory.new(@ui)
+    @easy_ai = EasyAI.new(@board)
+    @game = Game.new(@board, @mock_ui, @factory, @easy_ai)
   end
 
   context "players" do
@@ -45,7 +48,7 @@ describe Game do
     end
 
     it "should take turns until game is over" do
-      game = Game.new(@full_board, @mock_ui, @factory)
+      game = Game.new(@full_board, @mock_ui, @factory, @easy_ai)
       game.run
 
       game.turns_taken.should == 0
@@ -55,7 +58,7 @@ describe Game do
       mock_ui = double
       mock_ui.stub(:send_message)
       mock_ui.should_receive(:print_board).with(@full_board).once
-      game = Game.new(@full_board, mock_ui, @factory)
+      game = Game.new(@full_board, mock_ui, @factory, @easy_ai)
 
       game.run
     end
@@ -66,7 +69,7 @@ describe Game do
       mock_ui.stub(:receive_message)
       mock_ui.stub(:send_message)
       mock_ui.should_receive(:print_board).twice
-      game = Game.new(test_board, mock_ui, @factory)
+      game = Game.new(test_board, mock_ui, @factory, @easy_ai)
 
       game.run
     end
@@ -76,7 +79,7 @@ describe Game do
         mock_ui = double
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:send_message).with("X is the winner").once
-        game = Game.new(@full_board, mock_ui, @factory)
+        game = Game.new(@full_board, mock_ui, @factory, @easy_ai)
 
         game.run
       end
@@ -87,7 +90,7 @@ describe Game do
         mock_ui = double
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:send_message).with("O is the winner").once
-        game = Game.new(full_board, mock_ui, @factory)
+        game = Game.new(full_board, mock_ui, @factory, @easy_ai)
 
         game.run
       end
@@ -107,7 +110,7 @@ describe Game do
         mock_ui = double
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:send_message).with("Nobody wins this game").once
-        game = Game.new(full_board, mock_ui, @factory)
+        game = Game.new(full_board, mock_ui, @factory, @easy_ai)
 
         game.run
       end

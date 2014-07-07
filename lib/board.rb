@@ -2,7 +2,6 @@ class Board
   class MoveError < Exception ; end
 
   attr_reader :size
-  attr_accessor :board_state
 
   def initialize(size)
     @size = size
@@ -29,8 +28,8 @@ class Board
   private
 
   def validate_move(space_number)
-      raise MoveError.new("Space is Invalid!") if space_number >= @size
-      raise MoveError.new("Space is Invalid!") if space_number < 0
-      raise MoveError.new("Space is Full Bro!") unless @board_state[space_number].nil?
+    raise MoveError.new("Space is Invalid Bro!") if space_number >= @size
+    raise MoveError.new("Space is Invalid Bro!") if space_number < 0
+    raise MoveError.new("Space is Full Bro!") unless @board_state[space_number].nil?
   end
 end
