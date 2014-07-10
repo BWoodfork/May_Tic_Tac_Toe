@@ -18,7 +18,7 @@ class Game
         make_move
         take_turn
       rescue Board::MoveError => error
-        puts error.message
+        @ui.send_message error.message
       end
     end
 
