@@ -10,30 +10,22 @@ class HardAI
   end
 
   def minimax(board)
+    puts "this is check empty #{check_empty_spaces(board)}"
     possible_moves = Hash[check_empty_spaces(board).map { |spot, spot_score| [spot, nil] }]
+    puts "#{possible_moves}"
 
-      if game.current_player.class == HardAI
         possible_moves.each do |spot, spot_score|
           fake_board = clone_board(board)
           fake_board.fill_space(spot, @token)
-          score(board, possible_moves, spot)
+          if board.game_over?
+            return spot
+          else
+            score(fake_board, possible_moves, spot)
+            spot_number = possible_moves.values.max
+            best_move = possible_moves.key(spot_number)
+            return best_move
+          end
         end
-
-        best_move = possible_moves.values.max
-        return possible_moves.key[best_move]
-      
-      elsif game.current_player.class == Player
-        possible_moves.each do |spot, spot_score|
-          fake_board = clone_board(board)
-          fake_board.fill_space(spot, @token)
-          score(board, possible_moves, spot)
-        end
-
-        worst_move = possible_moves.values.min
-        return possible_moves.key[worst_move]
-      end
-
-       return minimax(board) if !board.game_over?
   end
 
  def score(board, possible_moves, spot)
@@ -48,25 +40,11 @@ class HardAI
    end
  end
 
-
-
-  # available_spaces = check_empty_spaces(board)
-  #   available_spaces.each do |space|
-  #     fake_board = clone_board(board)
-  #     fake_board.fill_space(space, @token)
-  #     score(board)
-  #   end
-
-
-
-
   def check_empty_spaces(board)
     fake_board = clone_board(board).spaces
 
-    fake_board.each_with_index do |space, index|
-      if space.nil?
-        return [index]
-      end
+    fake_board.each_index.select do |spot|
+      fake_board[spot] == nil
     end
   end
 
