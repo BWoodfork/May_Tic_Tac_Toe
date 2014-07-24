@@ -10,6 +10,10 @@ class EasyAI
 
   def pick_a_spot
     move = get_spot_number
+    make_move(move)
+  end
+
+  def make_move(move)
     @board.fill_space(move, @token)
   end
 end
