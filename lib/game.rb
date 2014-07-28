@@ -38,13 +38,13 @@ class Game
   def take_turn
     @turns_taken += 1
   end
-
+  
   def make_move
     if current_player.class == Player
       move = @ui.receive_message.to_i
       @board.fill_space(move, current_player.token)
     else
-      @easy_ai.pick_a_spot
+      @easy_ai.make_move(@board, current_player)
     end
   end
 

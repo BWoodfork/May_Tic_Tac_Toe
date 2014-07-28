@@ -19,7 +19,7 @@ describe Game do
     @board = TicTacToeBoard.new
     @mock_ui = MockUI.new
     @ui = double(receive_player_number: 1)
-    @factory = PlayerFactory.new(@ui)
+    @factory = PlayerFactory.new(@ui, @board)
     @easy_ai = EasyAI.new(@board)
     @game = Game.new(@board, @mock_ui, @factory, @easy_ai)
   end

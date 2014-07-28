@@ -3,11 +3,15 @@ require 'board'
 class TicTacToeBoard < Board
   class InvalidPiece < Exception ; end
 
+  attr_reader :x_mark, :o_mark
+
   VALID_PIECES = ['X', 'O'].freeze
 
   def initialize(length = 3)
     @length = length
     super(length * length)
+    @x_mark = "X"
+    @o_mark = "O"
   end
 
   def game_over?
@@ -22,6 +26,22 @@ class TicTacToeBoard < Board
   def fill_space(space_number, token)
     validate_piece(token)
     super(space_number, token)
+  end
+
+  def token_that_is_up
+    if spaces.compact.size.even?
+      @x_mark
+    else
+      @o_mark
+    end
+  end
+
+  def opponent_token
+    if spaces.compact.size.even?
+      @o_mark
+    else
+      @x_mark
+    end
   end
 
   private

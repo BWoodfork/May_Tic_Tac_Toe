@@ -6,7 +6,8 @@ require 'ui'
 describe PlayerFactory do
   before(:each) do
     @ui = double(receive_player_number: 1)
-    @factory = PlayerFactory.new(@ui)
+    @board = TicTacToeBoard.new
+    @factory = PlayerFactory.new(@ui, @board)
   end
 
   it "should create one human object and one AI object" do

@@ -112,4 +112,22 @@ describe TicTacToeBoard do
       }.should raise_error(TicTacToeBoard::InvalidPiece)
     end
   end
+
+  context "Determine next player" do
+    let(:board) { TicTacToeBoard.new }
+    it "return X if it is X's turn" do
+      board.token_that_is_up.should == "X"
+    end
+
+    it "return O if it is O's turn" do
+      board.fill_space(0, "X")
+      board.token_that_is_up.should == "O"
+    end
+
+    it "should return X if it is not X's turn" do
+      board.fill_space(0, "X")
+
+      board.opponent_token.should == "X"
+    end
+  end
 end

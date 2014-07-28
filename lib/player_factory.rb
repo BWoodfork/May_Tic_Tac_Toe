@@ -4,17 +4,16 @@ require 'easy_ai'
 class PlayerFactory
   attr_reader :find_players
 
-  def initialize(ui)
+  def initialize(ui, board)
     @find_players = []
-    @token_1 = "X"
-    @token_2 = "O"
     @ui = ui
+    @board = board
   end
 
   def setup_players
-    @human_player1 = Player.new(@token_1)
-    @human_player2 = Player.new(@token_2)
-    @easy_ai = EasyAI.new(@token_2)
+    @human_player1 = Player.new(@board.x_mark)
+    @human_player2 = Player.new(@board.o_mark)
+    @easy_ai = EasyAI.new(@board.o_mark)
 
     if @ui.receive_player_number == 1
       @find_players << @human_player1
