@@ -8,36 +8,32 @@ describe HardAI do
   end
 
   context "minimax" do
-    it "should return the first winning move" do
-      @board.fill_space(0, "O")
-      @board.fill_space(1, "X")
-      @board.fill_space(2, "X")
-      @board.fill_space(4, "X")
-      @board.fill_space(6, "O")
-
-      @hard.minimax(@board).should == 3
-    end
-
-    it "should return the next winning move" do
-      @board.fill_space(0, "O")
+    it "should return the winning move" do
+      @board.fill_space(0, "X")
       @board.fill_space(1, "O")
-      @board.fill_space(4, "X")
-      @board.fill_space(3, "X")
-      @board.fill_space(6, "X")
-
-      @hard.minimax(@board).should == 2
-    end
-
-    xit "should score the empty spaces on the board" do
-      @board.fill_space(0, "O")
-      @board.fill_space(1, "X")
       @board.fill_space(2, "X")
-      @board.fill_space(4, "X")
-      @board.fill_space(6, "O")
 
-      spot = []
-      @hard.score(@board, spot).should == 100
+      @board.fill_space(3, "X")
+      @board.fill_space(4, "O")
+      
+      @hard.minimax(@board).should == 7
     end
+
+    # it "should return the move to tie the game" do
+    #   @board.fill_space(0, "X")
+    #   @board.fill_space(1, "O")
+    #   @board.fill_space(2, "X")
+
+    #   @board.fill_space(3, "X")
+    #   @board.fill_space(4, "O")
+    #   @board.fill_space(5, "O")
+
+    #   @board.fill_space(6, "O")
+    #   @board.fill_space(7, "X")
+    #   @board.fill_space(8, "X")
+
+    #   @hard.minimax(@board).should == 50
+    # end
   end
 
   context "#empty_spaces" do
@@ -45,9 +41,11 @@ describe HardAI do
       @board.fill_space(0, "X")
       @board.fill_space(1, "X")
       @board.fill_space(2, "X")
+
       @board.fill_space(3, "X")
       @board.fill_space(4, "X")
       @board.fill_space(5, "X")
+
       @board.fill_space(6, "X")
       @board.fill_space(7, "X")
 
@@ -61,61 +59,55 @@ describe HardAI do
       new_board = @board.spaces
       @hard.clone_board(@board).object_id.should_not == new_board.object_id
     end
+
+    it "should clone duplicate spaces" do
+      new_board = @board.spaces
+      @hard.clone_board(@board).object_id.should_not == @board.object_id
+    end
   end
 
   context "#score" do
     describe "scoring conditions" do
-      xit "should return a score of 1 if O is the winner" do
+      it "should return score of 100 at a win" do
         @board.fill_space(0, "O")
-        @board.fill_space(1, "O")
-        @board.fill_space(2, "O")
-
-        possible_moves = {}
-        spot = []
-
-        @hard.score(@board, spot).should == 100
-      end
-
-      xit "should return score 1 if O is the winner vertically" do
-        @board.fill_space(0, "O")
-        @board.fill_space(3, "O")
-        @board.fill_space(6, "O")
-
-        possible_moves = {}
-        spot = []
-
-        @hard.score(@board, possible_moves, spot).should == 100
-      end
-
-      xit "should return a score of -1 if X is the winner" do
-        @board.fill_space(0, "X")
         @board.fill_space(1, "X")
         @board.fill_space(2, "X")
 
-        possible_moves = {}
-        spot = []
+        @board.fill_space(3, "O")
+        @board.fill_space(4, "X")
+        @board.fill_space(6, "O")
 
-        @hard.score(@board, possible_moves, spot).should == 0
+        @hard.score_move(@board).should == 100
       end
 
-      xit "should return a score of 0 in any other case" do
-        @board.fill_space(0, "X")
-        @board.fill_space(1, "O")
+      it "should return score of 0 at a loss" do
+        @board.fill_space(0, "O")
+        @board.fill_space(1, "X")
         @board.fill_space(2, "X")
 
-        possible_moves = {}
-        spot = []
+        @board.fill_space(4, "O")
+        @board.fill_space(5, "X")
+        @board.fill_space(6, "O")
 
-        @hard.score(@board, possible_moves, spot).should == 0
+        @board.fill_space(8, "X")
+
+        @hard.score_move(@board).should == 0
       end
 
-      xit "should return a score of 0 when the board is empty" do
-        @board == TicTacToeBoard.new(3)
+      it "should return a score of 50 at a tie" do
+        @board.fill_space(0, "O")
+        @board.fill_space(1, "X")
+        @board.fill_space(2, "O")
 
-        possible_moves = {}
-        spot = []
+        @board.fill_space(3, "X")
+        @board.fill_space(4, "X")
+        @board.fill_space(5, "O")
 
-        @hard.score(@board, possible_moves, spot).should == 0
+        @board.fill_space(6, "O")
+        @board.fill_space(7, "O")
+        @board.fill_space(8, "X")
+
+        @hard.score_move(@board).should == 50
       end
     end
   end

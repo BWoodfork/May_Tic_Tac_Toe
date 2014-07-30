@@ -23,6 +23,21 @@ describe TicTacToeBoard do
       board.game_over?.should == true
     end
 
+    it "is over when there is a tie" do
+      board = TicTacToeBoard.new(3)
+      board.fill_space(0, "X")
+      board.fill_space(1, 'O')
+      board.fill_space(2, 'X')
+      board.fill_space(3, 'X')
+      board.fill_space(4, 'O')
+      board.fill_space(5, 'O')
+      board.fill_space(6, 'O')
+      board.fill_space(7, 'X')
+      board.fill_space(8, 'X')
+
+      board.tie_game?.should == true
+    end
+
     it "is over when the same board piece occupies a row of spaces" do
       board = TicTacToeBoard.new(3)
       board.fill_space(0, 'X')

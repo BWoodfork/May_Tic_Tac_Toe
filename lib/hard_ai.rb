@@ -3,20 +3,46 @@ class HardAI
     @board = board
   end
 
-  def make_move(board, player)
-    move = minimax(board)
-    @board.fill_space(move, @board.o_mark)
+  def make_move
   end
 
   def minimax(board)
-    possible_moves = Hash[check_empty_spaces(board).map { |spot, spot_score| [spot, nil] }]
+    # possible_moves = Hash[check_empty_spaces(board).map { |spot, spot_score| [spot, nil] }]
+    fake_board = clone_board(board)
+    empty_spots = check_empty_spaces(board)
+    best_score = {}
 
-    possible_moves.each do |spot, spot_score|
-      fake_board = clone_board(board)
-      fake_board.fill_space(spot, fake_board.token_that_is_up)
-      if fake_board.game_over? 
-        return spot
-      end
+    empty_spots.each do |space|
+      fake_board.fill_space(space, fake_board.token_that_is_up)
+        if fake_board.winner == fake_board.token_that_is_up
+          best_score[space] = 100
+        elsif fake_board.tie_game?
+          best_score[space] = 50
+        elsif fake_board.winner == fake_board.opponent_token
+          best_score[space] = 0
+        end
+    end
+
+    number = best_score.values.max
+    best_score.key(number)
+
+    # if fake_board.token_that_is_up == fake_board.o_mark
+    #   number = best_score.values.max
+    #   best_score.key(number)
+    # elsif fake_board.token_that_is_up == fake_board.x_mark
+    #   number = best_score.values.min
+    #   best_score.key(number)
+    # end
+
+  end
+
+  def score_move(board)
+    if board.winner == board.o_mark
+      100
+    elsif board.winner == board.x_mark
+      0
+    else
+      50
     end
   end
 
@@ -29,6 +55,6 @@ class HardAI
   end
 
   def clone_board(board)
-    board.clone
-  end  
+    Marshal.load(Marshal.dump(board))
+  end
 end

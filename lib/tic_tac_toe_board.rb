@@ -23,6 +23,12 @@ class TicTacToeBoard < Board
     row_winner || column_winner || diagonal_winner
   end
 
+  def tie_game?
+    if game_over? && winner.nil?
+      true
+    end
+  end
+
   def fill_space(space_number, token)
     validate_piece(token)
     super(space_number, token)
