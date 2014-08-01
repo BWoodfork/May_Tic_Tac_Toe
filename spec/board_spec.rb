@@ -54,4 +54,13 @@ describe Board do
     board.fill_space(1, 'T')
     board.spaces.should == [nil, 'T', nil, nil]
   end
+
+   it "should undo a move that was made" do
+    board = Board.new(9)
+
+    board.fill_space(0, "X")
+
+    board.delete_space(0)
+    board.get_space(0).should == nil
+   end
 end

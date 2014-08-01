@@ -25,11 +25,15 @@ class Board
     @board_state
   end
 
+  def delete_space(space_number)
+    @board_state.delete_at(space_number)
+  end
+
   private
 
   def validate_move(space_number)
     raise MoveError.new("Space is Invalid Bro!") if space_number >= @size
     raise MoveError.new("Space is Invalid Bro!") if space_number < 0
-    raise MoveError.new("Space is Full Bro!") unless @board_state[space_number].nil?
+    raise MoveError.new("Space #{space_number} is Full Bro!") unless @board_state[space_number].nil?
   end
 end
