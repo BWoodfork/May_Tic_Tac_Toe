@@ -32,7 +32,7 @@ describe HardAI do
       @board.fill_space(6, "O")
       @board.fill_space(7, "X")
 
-      @hard.minimax(@board).should == 8
+      @hard.minimax(@board).should == [8]
     end
 
     xit "should return the move to block a win" do
@@ -61,16 +61,52 @@ describe HardAI do
       @hard.get_empty_spaces(@board).should == [8]
     end
   end
-  
-  context "#clone_board" do
-    it "should clone a duplicate of the existing board" do
-      new_board = @board.spaces
-      @hard.clone_board(@board).object_id.should_not == new_board.object_id
+
+  context "#score_board_state" do
+    it "should return a score of 10 if game winner is HardAI" do
+      @board.fill_space(0, "O")
+      @board.fill_space(1, "O")
+      @board.fill_space(2, "O")
+
+      @board.fill_space(3, "X")
+      @board.fill_space(5, "X")
+      @board.fill_space(6, "X")
+      
+      @hard.score_board_state(@board).should == 10
     end
 
-    it "should clone duplicate spaces" do
-      new_board = @board.spaces
-      @hard.clone_board(@board).object_id.should_not == @board.object_id
+    it "should return a score of -10 if game winner is Human" do
+      @board.fill_space(0, "X")
+      @board.fill_space(1, "X")
+      @board.fill_space(2, "X")
+
+      @board.fill_space(3, "O")
+      @board.fill_space(5, "O")
+      @board.fill_space(6, "O")
+
+      @hard.score_board_state(@board).should == -10
+    end
+
+    it "should return a score of 0 if it's a tie game" do
+      @board.fill_space(0, "X")
+      @board.fill_space(1, "X")
+      @board.fill_space(2, "O")
+
+      @board.fill_space(3, "O")
+      @board.fill_space(4, "X")
+      @board.fill_space(5, "X")
+
+      @board.fill_space(6, "X")
+      @board.fill_space(7, "O")
+      @board.fill_space(8, "O")
+
+      @hard.score_board_state(@board).should == 0
+    end
+  end
+  
+  context "#duplicate board" do
+    it "should generate a duplicate of the board" do
+      @hard.duplicate_board(@board).object_id.should_not == @board.object_id
     end
   end
 end
