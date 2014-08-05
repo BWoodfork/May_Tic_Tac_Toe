@@ -13,7 +13,7 @@ class PlayerFactory
   def setup_players
     @human_player1 = Player.new(@board.x_mark)
     @human_player2 = Player.new(@board.o_mark)
-    @easy_ai = EasyAI.new(@board.o_mark)
+    @easy_ai = HardAI.new(@board.o_mark)
 
     if @ui.receive_player_number == 1
       @find_players << @human_player1

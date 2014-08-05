@@ -44,7 +44,7 @@ class Game
       move = @ui.receive_message.to_i
       @board.fill_space(move, current_player.token)
     else
-      @easy_ai.make_move(@board, current_player)
+      @easy_ai.make_move(@board)
     end
   end
 

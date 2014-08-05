@@ -4,28 +4,36 @@ class HardAI
   end
 
   def make_move(board)
-    fake_board = duplicate_board(fake_board)
+    fake_board = duplicate_board(board)
+    move = minimax(fake_board)
+
+    @board.fill_space(move, @board.o_mark)
   end
 
   def minimax(fake_board, depth = 0, scores = {})
+
     get_empty_spaces(fake_board).each do |space|
       fake_board.fill_space(space, fake_board.token_that_is_up)
-        if fake_board.game_over?
-          scores[space] = score_board_state(fake_board)
-          scores
-        else
-          minimax(fake_board, depth + 1)
-          fake_board.delete_space(space)
-        end
+        scores[space] = score_board_state(fake_board)
+        minimax(fake_board, depth + 1)
+        fake_board.spaces[space] = nil
+    end
+
+    if fake_board.token_that_is_up == fake_board.o_mark
+      top = scores.values.max
+      return scores.key(top)
+    elsif fake_board.token_that_is_up == fake_board.x_mark
+      low = scores.values.min
+      return scores.key(low)
     end
   end
 
-  def score_board_state(board)
-    if board.winner == board.o_mark
+  def score_board_state(fake_board)
+    if fake_board.winner == fake_board.o_mark
       10
-    elsif board.winner == board.x_mark
+    elsif fake_board.winner == fake_board.x_mark
       -10
-    elsif board.tie_game?
+    else
       0
     end
   end
