@@ -11,28 +11,30 @@ class HardAI
   end
 
   def minimax(fake_board, depth = 0, scores = {})
+    return -1 if fake_board.game_over?
+    return 0 if fake_board.tie_game?
 
     get_empty_spaces(fake_board).each do |space|
       fake_board.fill_space(space, fake_board.token_that_is_up)
-        scores[space] = score_board_state(fake_board)
-        minimax(fake_board, depth + 1)
+        scores[space] = -1 * minimax(fake_board, depth + 1, {})
         fake_board.spaces[space] = nil
-    end
+    end 
 
-    if fake_board.token_that_is_up == fake_board.o_mark
-      top = scores.values.max
-      return scores.key(top)
-    elsif fake_board.token_that_is_up == fake_board.x_mark
-      low = scores.values.min
-      return scores.key(low)
+    if depth == 0
+      best_space = scores.each {|key, value| return key if value == scores.values.max }
+      return best_space
+    elsif depth > 0
+      p scores
+      best_scored_space = scores.each {|key, value| return key if value == scores.values.max }
+      return best_scored_space
     end
   end
 
   def score_board_state(fake_board)
     if fake_board.winner == fake_board.o_mark
-      10
+      1
     elsif fake_board.winner == fake_board.x_mark
-      -10
+      -1
     else
       0
     end

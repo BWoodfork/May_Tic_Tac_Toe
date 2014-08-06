@@ -71,7 +71,7 @@ describe HardAI do
   end
 
   context "#score_board_state" do
-    it "should return a score of 10 if game winner is HardAI" do
+    it "should return a score of 1 if game winner is HardAI" do
       @board.fill_space(0, "O")
       @board.fill_space(1, "O")
       @board.fill_space(2, "O")
@@ -80,10 +80,10 @@ describe HardAI do
       @board.fill_space(5, "X")
       @board.fill_space(6, "X")
       
-      @hard.score_board_state(@board).should == 10
+      @hard.score_board_state(@board).should == 1
     end
 
-    it "should return a score of -10 if game winner is Human" do
+    it "should return a score of -1 if game winner is Human" do
       @board.fill_space(0, "X")
       @board.fill_space(1, "X")
       @board.fill_space(2, "X")
@@ -92,7 +92,7 @@ describe HardAI do
       @board.fill_space(5, "O")
       @board.fill_space(6, "O")
 
-      @hard.score_board_state(@board).should == -10
+      @hard.score_board_state(@board).should == -1
     end
 
     it "should return a score of 0 if it's a tie game" do
