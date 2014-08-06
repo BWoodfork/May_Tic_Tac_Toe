@@ -20,12 +20,12 @@ class HardAI
         fake_board.spaces[space] = nil
     end 
 
+    best_space = scores.each {|key, value| return key if value == scores.values.max }
+    best_scored_space = scores.each {|key, value| return key if value == scores.values.min }
+
     if depth == 0
-      best_space = scores.each {|key, value| return key if value == scores.values.max }
       return best_space
-    elsif depth > 0
-      p scores
-      best_scored_space = scores.each {|key, value| return key if value == scores.values.max }
+    elsif depth > 0      
       return best_scored_space
     end
   end
