@@ -42,14 +42,6 @@ describe HardAI do
 
       @hard.minimax(@board).should == 1
     end
-
-    it "should block the win in all instances" do
-      @board.fill_space(2, "X")
-      @board.fill_space(7, "O")
-      @board.fill_space(8, "X")
-
-      @hard.minimax(@board).should == 5
-    end
   end
 
   context "#empty_spaces" do

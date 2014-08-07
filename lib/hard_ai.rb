@@ -11,8 +11,8 @@ class HardAI
   end
 
   def minimax(fake_board, depth = 0, scores = {})
-    return -1 if fake_board.game_over?
     return 0 if fake_board.tie_game?
+    return -1 if fake_board.game_over?
 
     get_empty_spaces(fake_board).each do |space|
       fake_board.fill_space(space, fake_board.token_that_is_up)
@@ -20,13 +20,10 @@ class HardAI
         fake_board.spaces[space] = nil
     end 
 
-    best_space = scores.each {|key, value| return key if value == scores.values.max }
-    best_scored_space = scores.each {|key, value| return key if value == scores.values.min }
-
     if depth == 0
-      return best_space
-    elsif depth > 0      
-      return best_scored_space
+      best_space = scores.max_by { |key, value| value }[0]
+    elsif depth > 0
+      best_scored_space = scores.min_by { |key, value| value }[1]
     end
   end
 
