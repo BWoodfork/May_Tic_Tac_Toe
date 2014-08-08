@@ -34,6 +34,22 @@ class TicTacToeBoard < Board
     super(space_number, token)
   end
 
+  def get_empty_spaces(board)
+    board_spaces = duplicate_board(board).spaces
+    empty_board_spots = []
+
+    board_spaces.each_with_index do |space, index|
+      if space.nil?
+        empty_board_spots << index
+      end
+    end
+    empty_board_spots
+  end
+
+  def duplicate_board(board)
+    Marshal.load(Marshal.dump(board))
+  end
+
   def token_that_is_up
     if spaces.compact.size.even?
       @x_mark

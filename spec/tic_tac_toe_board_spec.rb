@@ -1,6 +1,11 @@
 require 'tic_tac_toe_board'
 
 describe TicTacToeBoard do
+
+  before (:each) do
+    @board = TicTacToeBoard.new
+  end
+  
   it "has 9 spaces for a 3X3 board" do
     board = TicTacToeBoard.new(3)
     board.size.should == 9
@@ -143,6 +148,30 @@ describe TicTacToeBoard do
       board.fill_space(0, "X")
 
       board.opponent_token.should == "X"
+    end
+  end
+
+  context "#duplicate board" do
+    it "should generate a duplicate of the board" do
+      @board.duplicate_board(@board).object_id.should_not == @board.object_id
+    end
+  end
+
+   context "#empty_spaces" do
+    it "should return empty spaces" do
+      @board.fill_space(0, "X")
+      @board.fill_space(1, "X")
+      @board.fill_space(2, "X")
+
+      @board.fill_space(3, "X")
+      @board.fill_space(4, "X")
+      @board.fill_space(5, "X")
+
+      @board.fill_space(6, "X")
+      @board.fill_space(7, "X")
+
+
+      @board.get_empty_spaces(@board).should == [8]
     end
   end
 end
