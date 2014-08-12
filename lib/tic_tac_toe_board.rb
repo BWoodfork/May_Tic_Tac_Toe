@@ -29,6 +29,10 @@ class TicTacToeBoard < Board
     end
   end
 
+  def full?
+    @board_state.compact.size == @size
+  end
+
   def fill_space(space_number, token)
     validate_piece(token)
     super(space_number, token)

@@ -34,18 +34,6 @@ describe Board do
     end
   end
 
-  it "knows when it is full" do
-    board = Board.new(1)
-    board.fill_space(0, 'x')
-    board.full?.should == true
-  end
-
-  it "knows when it isn't full" do
-    board = Board.new(2)
-    board.fill_space(0, 'x')
-    board.full?.should == false
-  end
-
   it "lists all the spaces" do
     board = Board.new(1)
     board.spaces.should == [nil]
@@ -54,13 +42,4 @@ describe Board do
     board.fill_space(1, 'T')
     board.spaces.should == [nil, 'T', nil, nil]
   end
-
-   it "should undo a move that was made" do
-    board = Board.new(9)
-
-    board.fill_space(0, "X")
-
-    board.delete_space(0)
-    board.get_space(0).should == nil
-   end
 end

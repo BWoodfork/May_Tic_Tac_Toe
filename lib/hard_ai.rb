@@ -20,8 +20,8 @@ class HardAI
         fake_board.spaces[space] = nil
     end
 
-    best_space = scores.max_by { |key, value| value }[0]
-    best_scored_space = scores.max_by { |key, value| value }[1]
+    best_space = scores.max_by { |space, score| score }[0]
+    best_scored_space = scores.max_by { |space, score| score }[1]
     
     depth == 0 ? best_space : best_scored_space
   end

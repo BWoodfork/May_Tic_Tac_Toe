@@ -17,16 +17,8 @@ class Board
     @board_state[space_number]
   end
 
-  def full?
-    @board_state.compact.size == @size
-  end
-
   def spaces
     @board_state
-  end
-
-  def delete_space(space_number)
-    @board_state.delete_at(space_number)
   end
 
   private

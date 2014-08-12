@@ -1,12 +1,13 @@
 class Game
   attr_reader :turns_taken
 
-  def initialize(board, ui, factory, easy_ai)
+  def initialize(board, ui, factory, easy_ai, hard_ai)
     @board = board
     @ui = ui
     @factory = factory
     @easy_ai = easy_ai
     @turns_taken = 0
+    @hard_ai = hard_ai
   end
 
   def run
@@ -43,8 +44,10 @@ class Game
     if current_player.class == Player
       move = @ui.receive_message.to_i
       @board.fill_space(move, current_player.token)
-    else
+    elsif current_player.class == EasyAI
       @easy_ai.make_move(@board)
+    elsif current_player.class == HardAI
+      @hard_ai.make_move(@board)
     end
   end
 

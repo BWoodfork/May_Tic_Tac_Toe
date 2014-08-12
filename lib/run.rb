@@ -9,10 +9,10 @@ require 'hard_ai'
 board = TicTacToeBoard.new
 ui = UI.new
 factory = PlayerFactory.new(ui, board)
-easy_ai = HardAI.new(board)
+easy_ai = EasyAI.new(board)
 hard_ai = HardAI.new(board)
 
-game = Game.new(board, ui, factory, easy_ai)
+game = Game.new(board, ui, factory, easy_ai, hard_ai)
 
 
 game.run
