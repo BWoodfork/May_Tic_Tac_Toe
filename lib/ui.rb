@@ -9,7 +9,7 @@ class UI
     gets.chomp
   end
 
-  def get_player_count
+  def ask_player_count
     send_message("How many players? 1 or 2?")
   end
 
@@ -31,7 +31,7 @@ class UI
   end
 
   def receive_player_number
-    get_player_count
+    ask_player_count
     receive_message.to_i
   end
 

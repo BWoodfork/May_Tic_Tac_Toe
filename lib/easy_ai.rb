@@ -1,8 +1,7 @@
 class EasyAI
-  attr_reader :token
   def initialize(board)
     @board = board
-    @token = token
+    @token = "O"
   end
 
   def get_spot_number

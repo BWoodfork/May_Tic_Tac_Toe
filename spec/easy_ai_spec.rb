@@ -1,9 +1,9 @@
 require 'easy_ai'
-require 'tic_tac_toe_board'
+require 'tic_tac_toe_rules'
 
 describe EasyAI do
   before(:each) do
-    @board = TicTacToeBoard.new
+    @board = TicTacToeRules.new
     @ai = EasyAI.new(@board)
   end
 

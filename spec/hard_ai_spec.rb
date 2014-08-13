@@ -1,9 +1,9 @@
 require 'hard_ai'
-require 'tic_tac_toe_board'
+require 'tic_tac_toe_rules'
 
 describe HardAI do
   before(:each) do
-    @board = TicTacToeBoard.new(3)
+    @board = TicTacToeRules.new(3)
     @hard = HardAI.new(@board)
   end
 

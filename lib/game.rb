@@ -45,7 +45,7 @@ class Game
       move = @ui.receive_message.to_i
       @board.fill_space(move, current_player.token)
     elsif current_player.class == EasyAI
-      @easy_ai.make_move(@board)
+      @easy_ai.pick_a_spot
     elsif current_player.class == HardAI
       @hard_ai.make_move(@board)
     end

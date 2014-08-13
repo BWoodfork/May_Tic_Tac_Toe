@@ -1,6 +1,6 @@
 require 'game'
-require 'tic_tac_toe_board'
-require 'player_factory'
+require 'tic_tac_toe_rules'
+require 'game_options'
 require 'ui'
 
 class MockUI
@@ -16,40 +16,40 @@ end
 
 describe Game do
   before(:each) do
-    @board = TicTacToeBoard.new
+    @board = TicTacToeRules.new
     @mock_ui = MockUI.new
     @ui = double(receive_player_number: 1)
-    @factory = PlayerFactory.new(@ui, @board)
+    @options = GameOptions.new(@ui, @board)
     @easy_ai = EasyAI.new(@board)
     @hard_ai = HardAI.new(@board)
-    @game = Game.new(@board, @mock_ui, @factory, @easy_ai, @hard_ai)
+    @game = Game.new(@board, @mock_ui, @options, @easy_ai, @hard_ai)
   end
 
   context "players" do
     xit "current player is player 1 by default" do
-      @factory.get_number_of_players
-      @game.current_player.should == @factory.find_players[0]
+      @options.get_number_of_players
+      @game.current_player.should == @options.find_players[0]
     end
 
     xit "alternates players" do
-      @factory.get_number_of_players
+      @options.get_number_of_players
 
-      @game.current_player.should == @factory.find_players[0]
+      @game.current_player.should == @options.find_players[0]
       @game.take_turn
-      @game.current_player.should == @factory.find_players[1]
+      @game.current_player.should == @options.find_players[1]
       @game.take_turn
-      @game.current_player.should == @factory.find_players[0]
+      @game.current_player.should == @options.find_players[0]
     end
   end
 
   context "run game" do
     before(:each) do
-      @full_board = TicTacToeBoard.new(1)
+      @full_board = TicTacToeRules.new(1)
       @full_board.fill_space(0, 'X')
     end
 
     it "should take turns until game is over" do
-      game = Game.new(@full_board, @mock_ui, @factory, @easy_ai, @hard_ai)
+      game = Game.new(@full_board, @mock_ui, @options, @easy_ai, @hard_ai)
       game.run
 
       game.turns_taken.should == 0
@@ -59,18 +59,18 @@ describe Game do
       mock_ui = double
       mock_ui.stub(:send_message)
       mock_ui.should_receive(:print_board).with(@full_board).once
-      game = Game.new(@full_board, mock_ui, @factory, @easy_ai, @hard_ai)
+      game = Game.new(@full_board, mock_ui, @options, @easy_ai, @hard_ai)
 
       game.run
     end
 
     it "prints the board each turn" do
-      test_board = TicTacToeBoard.new(1)
+      test_board = TicTacToeRules.new(1)
       mock_ui = double
       mock_ui.stub(:receive_message)
       mock_ui.stub(:send_message)
       mock_ui.should_receive(:print_board).twice
-      game = Game.new(test_board, mock_ui, @factory, @easy_ai, @hard_ai)
+      game = Game.new(test_board, mock_ui, @options, @easy_ai, @hard_ai)
 
       game.run
     end
@@ -80,24 +80,24 @@ describe Game do
         mock_ui = double
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:send_message).with("X is the winner").once
-        game = Game.new(@full_board, mock_ui, @factory, @easy_ai, @hard_ai)
+        game = Game.new(@full_board, mock_ui, @options, @easy_ai, @hard_ai)
 
         game.run
       end
 
       it "when O is the winner" do
-        full_board = TicTacToeBoard.new(1)
+        full_board = TicTacToeRules.new(1)
         full_board.fill_space(0, 'O')
         mock_ui = double
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:send_message).with("O is the winner").once
-        game = Game.new(full_board, mock_ui, @factory, @easy_ai, @hard_ai)
+        game = Game.new(full_board, mock_ui, @options, @easy_ai, @hard_ai)
 
         game.run
       end
 
       it "when it's a tie" do
-        full_board = TicTacToeBoard.new(3)
+        full_board = TicTacToeRules.new(3)
         full_board.fill_space(0, 'X')
         full_board.fill_space(1, 'O')
         full_board.fill_space(2, 'X')
@@ -111,7 +111,7 @@ describe Game do
         mock_ui = double
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:send_message).with("Nobody wins this game").once
-        game = Game.new(full_board, mock_ui, @factory, @easy_ai, @hard_ai)
+        game = Game.new(full_board, mock_ui, @options, @easy_ai, @hard_ai)
 
         game.run
       end
