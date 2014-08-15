@@ -4,7 +4,7 @@ class HardAI
   end
 
   def make_move(board)
-    fake_board = @board.duplicate_board(board)
+    fake_board = @board
     move = minimax(fake_board)
 
     @board.fill_space(move, @board.o_mark)
