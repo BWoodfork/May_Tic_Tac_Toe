@@ -24,7 +24,7 @@ class Game
     end
 
     @ui.print_board(@board)
-    
+
     @board.tie_game? ? @ui.nobody_wins_message : @ui.get_winning_player
   end
 

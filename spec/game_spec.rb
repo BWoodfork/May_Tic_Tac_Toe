@@ -73,12 +73,14 @@ describe Game do
 
     it "prints the board each turn" do
       test_board = TicTacToeRules.new(1)
+      test_board.fill_space(0, "X")
 
       @ui.stub(:receive_difficulty)
       mock_ui = double
       mock_ui.stub(:receive_message)
       mock_ui.stub(:send_message)
-      mock_ui.should_receive(:print_board).twice
+      mock_ui.should_receive(:print_board).once
+      mock_ui.should_receive(:get_winning_player)
 
       game = Game.new(test_board, mock_ui, @options, @easy_ai, @hard_ai)
 
