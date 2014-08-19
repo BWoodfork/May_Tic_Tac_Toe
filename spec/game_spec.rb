@@ -54,6 +54,7 @@ describe Game do
     it "should take turns until game is over" do
       game = Game.new(@full_board, @mock_ui, @options, @easy_ai, @hard_ai)
       @ui.stub(:receive_difficulty)
+      @ui.stub(:easy_ai_message)
       game.run
 
       game.turns_taken.should == 0
@@ -62,6 +63,7 @@ describe Game do
     it "prints the board after the game is over" do
       mock_ui = double
       @ui.stub(:receive_difficulty)
+      @ui.stub(:easy_ai_message)
       mock_ui.stub(:send_message)
       mock_ui.should_receive(:print_board).with(@full_board).once
       mock_ui.should_receive(:get_winning_player)
@@ -76,6 +78,7 @@ describe Game do
       test_board.fill_space(0, "X")
 
       @ui.stub(:receive_difficulty)
+      @ui.stub(:easy_ai_message)
       mock_ui = double
       mock_ui.stub(:receive_message)
       mock_ui.stub(:send_message)
@@ -91,6 +94,7 @@ describe Game do
       it "when X is the winner" do
         mock_ui = double
         @ui.stub(:receive_difficulty)
+        @ui.stub(:easy_ai_message)
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:get_winning_player)
         game = Game.new(@full_board, mock_ui, @options, @easy_ai, @hard_ai)
@@ -104,6 +108,7 @@ describe Game do
 
         mock_ui = double
         @ui.stub(:receive_difficulty)
+        @ui.stub(:easy_ai_message)
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:get_winning_player)
         game = Game.new(full_board, mock_ui, @options, @easy_ai, @hard_ai)
@@ -124,6 +129,7 @@ describe Game do
         full_board.fill_space(8, 'O')
 
         @ui.stub(:receive_difficulty)
+        @ui.stub(:easy_ai_message)
         mock_ui = double
         mock_ui.stub(:print_board)
         mock_ui.should_receive(:nobody_wins_message)

@@ -9,13 +9,13 @@ require 'easy_ai'
 require 'player'
 
 ttt_board = TicTacToeBoard.new
-ui = UI.new(board)
-easy_ai = EasyAI.new(board)
-hard_ai = HardAI.new(board)
+ui = UI.new(ttt_board)
+easy_ai = EasyAI.new(ttt_board)
+hard_ai = HardAI.new(ttt_board)
 player = Player.new
-options = GameOptions.new(ui, board, player, easy_ai, hard_ai)
+options = GameOptions.new(ui, ttt_board, player, easy_ai, hard_ai)
 
-game = Game.new(board, ui, options, easy_ai, hard_ai)
+game = Game.new(ttt_board, ui, options, easy_ai, hard_ai)
 
 
 game.run

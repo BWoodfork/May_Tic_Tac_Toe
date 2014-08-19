@@ -1,13 +1,13 @@
 class HardAI
-  def initialize(board)
-    @board = board
+  def initialize(tic_tac_toe_board)
+    @ttt_board = tic_tac_toe_board
   end
 
   def make_move
-    fake_board = @board
+    fake_board = @ttt_board
     move = minimax(fake_board)
 
-    @board.fill_space(move, @board.o_mark)
+    @ttt_board.fill_space(move, @ttt_board.o_mark)
   end
 
   def minimax(fake_board, depth = 0, scores = {})

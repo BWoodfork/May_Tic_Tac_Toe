@@ -27,7 +27,7 @@ class UI
 
   def receive_difficulty
     send_message(ASK_DIFFICULTY)
-    receive_message
+    receive_message.downcase
   end
 
   def receive_player_number
@@ -35,16 +35,22 @@ class UI
     receive_message.to_i
   end
 
-  def wrong_number
-    send_message("wrong number of players")
-  end
-
   def print_board(board)
     send_message(Board::Presenter::Console.present(board))
+  end
+
+  def hard_ai_message
+    HARD_AI
+  end
+
+  def easy_ai_message
+    EASY_AI
   end
 
 ASK_PLAYER_COUNT = "How player players? 1 or 2?"
 ASK_DIFFICULTY = "What difficulty level? Easy or Hard?"
 NOBODY_WINS = "Nobody wins this game"
+HARD_AI = "hard"
+EASY_AI = "easy"
 
 end
