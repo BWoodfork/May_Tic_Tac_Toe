@@ -1,5 +1,5 @@
 class Game
-  attr_reader :turns_taken, :get_ai
+  attr_reader :turns_taken
 
   def initialize(tic_tac_toe_board, ui, options, easy_ai, hard_ai)
     @ttt_board = tic_tac_toe_board
@@ -8,7 +8,6 @@ class Game
     @easy_ai = easy_ai
     @hard_ai = hard_ai
     @turns_taken = 0
-    @get_ai = []
   end
 
   def run
@@ -47,7 +46,7 @@ class Game
       @hard_ai.make_move
     end
   end
-  
+
   private
 
   def player_that_is_up
