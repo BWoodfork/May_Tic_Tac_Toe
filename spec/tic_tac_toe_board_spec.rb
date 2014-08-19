@@ -1,34 +1,34 @@
-require 'tic_tac_toe_rules'
+require 'tic_tac_toe_board'
 
-describe TicTacToeRules do
+describe TicTacToeBoard do
   before(:each) do
-    @board = TicTacToeRules.new
+    @board = TicTacToeBoard.new
   end
   
   it "has 9 spaces for a 3X3 board" do
-    @board = TicTacToeRules.new(3)
+    @board = TicTacToeBoard.new(3)
     @board.size.should == 9
   end
 
   it "has 16 spaces for a 4X4 board" do
-    @board = TicTacToeRules.new(4)
+    @board = TicTacToeBoard.new(4)
     @board.size.should == 16
   end
 
   it "has 9 spaces and is a 3X3 board by default" do
-    @board = TicTacToeRules.new
+    @board = TicTacToeBoard.new
     @board.size.should == 9
   end
 
   context "knows if the game is over" do
     it "is over when the board is full" do
-      @board = TicTacToeRules.new(1)
+      @board = TicTacToeBoard.new(1)
       @board.fill_space(0, 'X')
       @board.game_over?.should == true
     end
 
     it "is over when there is a tie" do
-      @board = TicTacToeRules.new(3)
+      @board = TicTacToeBoard.new(3)
       @board.fill_space(0, "X")
       @board.fill_space(1, 'O')
       @board.fill_space(2, 'X')
@@ -43,32 +43,32 @@ describe TicTacToeRules do
     end
 
     it "is over when the same board piece occupies a row of spaces" do
-      @board = TicTacToeRules.new(3)
+      @board = TicTacToeBoard.new(3)
       @board.fill_space(0, 'X')
       @board.fill_space(1, 'X')
       @board.fill_space(2, 'X')
       @board.game_over?.should == true
 
-      @board = TicTacToeRules.new(3)
+      @board = TicTacToeBoard.new(3)
       @board.fill_space(0, 'O')
       @board.fill_space(1, 'O')
       @board.fill_space(2, 'O')
       @board.game_over?.should == true
 
-      @board = TicTacToeRules.new(2)
+      @board = TicTacToeBoard.new(2)
       @board.fill_space(0, 'X')
       @board.fill_space(1, 'X')
       @board.game_over?.should == true
     end
 
     it "is over when the same board piece occupies a column of spaces" do
-      @board = TicTacToeRules.new(3)
+      @board = TicTacToeBoard.new(3)
       @board.fill_space(0, 'X')
       @board.fill_space(3, 'X')
       @board.fill_space(6, 'X')
       @board.game_over?.should == true
 
-      @board = TicTacToeRules.new(3)
+      @board = TicTacToeBoard.new(3)
       @board.fill_space(0, 'O')
       @board.fill_space(3, 'O')
       @board.fill_space(6, 'O')
@@ -76,13 +76,13 @@ describe TicTacToeRules do
     end
 
     it "is over when the same board piece occupies a diagonal line" do
-      @board = TicTacToeRules.new(3)
+      @board = TicTacToeBoard.new(3)
       @board.fill_space(0, 'X')
       @board.fill_space(4, 'X')
       @board.fill_space(8, 'X')
       @board.game_over?.should == true
 
-      @board = TicTacToeRules.new(3)
+      @board = TicTacToeBoard.new(3)
       @board.fill_space(2, 'O')
       @board.fill_space(4, 'O')
       @board.fill_space(6, 'O')
@@ -90,37 +90,37 @@ describe TicTacToeRules do
     end
 
     it "isn't over in all other cases" do
-      @board = TicTacToeRules.new(1)
+      @board = TicTacToeBoard.new(1)
       @board.game_over?.should == false
     end
 
     it "knows when the board is full" do
-      @board = TicTacToeRules.new(1)
+      @board = TicTacToeBoard.new(1)
       @board.fill_space(0, 'X')
       @board.full?.should == true
     end
 
     it "knows when it isn't full" do
-      @board = TicTacToeRules.new(2)
+      @board = TicTacToeBoard.new(2)
       @board.fill_space(0, 'X')
       @board.full?.should == false
     end
   end
 
   it "finds the correct winner" do
-    @board = TicTacToeRules.new
+    @board = TicTacToeBoard.new
     @board.fill_space(0, 'X')
     @board.fill_space(4, 'X')
     @board.fill_space(8, 'X')
     @board.winner.should == 'X'
 
-    @board = TicTacToeRules.new
+    @board = TicTacToeBoard.new
     @board.fill_space(0, 'O')
     @board.fill_space(1, 'O')
     @board.fill_space(2, 'O')
     @board.winner.should == 'O'
 
-    @board = TicTacToeRules.new
+    @board = TicTacToeBoard.new
     @board.winner.should == nil
   end
 
@@ -138,7 +138,7 @@ describe TicTacToeRules do
     it "everything else is an invalid piece" do
       lambda {
         @board.fill_space(0, 'Y')
-      }.should raise_error(TicTacToeRules::InvalidPiece)
+      }.should raise_error(TicTacToeBoard::InvalidPiece)
     end
   end
 

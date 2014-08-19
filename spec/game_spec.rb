@@ -1,5 +1,5 @@
 require 'game'
-require 'tic_tac_toe_rules'
+require 'tic_tac_toe_board'
 require 'game_options'
 require 'ui'
 require 'player'
@@ -22,13 +22,13 @@ end
 
 describe Game do
   before(:each) do
-    @board = TicTacToeRules.new
+    @ttt_board = TicTacToeBoard.new
     @mock_ui = MockUI.new
     @ui = double(receive_player_number: 1)
-    @easy_ai = EasyAI.new(@board)
-    @hard_ai = HardAI.new(@board)
-    @options = GameOptions.new(@ui, @board, @player, @easy_ai, @hard_ai)
-    @game = Game.new(@board, @mock_ui, @options, @easy_ai, @hard_ai)
+    @easy_ai = EasyAI.new(@ttt_board)
+    @hard_ai = HardAI.new(@ttt_board)
+    @options = GameOptions.new(@ui, @ttt_board, @player, @easy_ai, @hard_ai)
+    @game = Game.new(@ttt_board, @mock_ui, @options, @easy_ai, @hard_ai)
   end
 
   context "players" do
@@ -47,7 +47,7 @@ describe Game do
 
   context "run game" do
     before(:each) do
-      @full_board = TicTacToeRules.new(1)
+      @full_board = TicTacToeBoard.new(1)
       @full_board.fill_space(0, 'X')
     end
 
@@ -72,7 +72,7 @@ describe Game do
     end
 
     it "prints the board each turn" do
-      test_board = TicTacToeRules.new(1)
+      test_board = TicTacToeBoard.new(1)
       test_board.fill_space(0, "X")
 
       @ui.stub(:receive_difficulty)
@@ -99,7 +99,7 @@ describe Game do
       end
 
       it "when O is the winner" do
-        full_board = TicTacToeRules.new(1)
+        full_board = TicTacToeBoard.new(1)
         full_board.fill_space(0, 'O')
 
         mock_ui = double
@@ -112,7 +112,7 @@ describe Game do
       end
 
       it "when it's a tie" do
-        full_board = TicTacToeRules.new(3)
+        full_board = TicTacToeBoard.new(3)
         full_board.fill_space(0, 'X')
         full_board.fill_space(1, 'O')
         full_board.fill_space(2, 'X')

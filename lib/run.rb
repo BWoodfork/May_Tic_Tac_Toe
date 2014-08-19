@@ -1,14 +1,14 @@
 $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
 
 require 'game'
-require 'tic_tac_toe_rules'
+require 'tic_tac_toe_board'
 require 'ui'
 require 'game_options'
 require 'hard_ai'
 require 'easy_ai'
 require 'player'
 
-board = TicTacToeRules.new
+ttt_board = TicTacToeBoard.new
 ui = UI.new(board)
 easy_ai = EasyAI.new(board)
 hard_ai = HardAI.new(board)

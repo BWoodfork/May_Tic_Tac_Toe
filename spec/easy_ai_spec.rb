@@ -1,10 +1,10 @@
 require 'easy_ai'
-require 'tic_tac_toe_rules'
+require 'tic_tac_toe_board'
 
 describe EasyAI do
   before(:each) do
-    @board = TicTacToeRules.new
-    @ai = EasyAI.new(@board)
+    @ttt_board = TicTacToeBoard.new
+    @ai = EasyAI.new(@ttt_board)
   end
 
   it "should pick the first empty spot" do  
@@ -12,10 +12,10 @@ describe EasyAI do
   end
 
   it "should pick the next empty spot" do
-    @board.fill_space(0, "O")
-    @board.fill_space(1, "O")
-    @board.fill_space(2, "O")
-    @board.fill_space(3, "O")
+    @ttt_board.fill_space(0, "O")
+    @ttt_board.fill_space(1, "O")
+    @ttt_board.fill_space(2, "O")
+    @ttt_board.fill_space(3, "O")
     
     @ai.get_spot_number.should == 4
   end  

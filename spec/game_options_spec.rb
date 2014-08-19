@@ -1,15 +1,15 @@
 require 'game_options'
 require 'ui'
-require 'tic_tac_toe_rules'
+require 'tic_tac_toe_board'
 
 describe GameOptions do
   before(:each) do
-    @board = TicTacToeRules.new
-    @ui = UI.new(@board)
+    @ttt_board = TicTacToeBoard.new
+    @ui = UI.new(@ttt_board)
     @player = Player.new
-    @easy_ai = EasyAI.new(@board)
-    @hard_ai = HardAI.new(@board)
-    @options = GameOptions.new(@ui, @board, @player, @easy_ai, @hard_ai)
+    @easy_ai = EasyAI.new(@ttt_board)
+    @hard_ai = HardAI.new(@ttt_board)
+    @options = GameOptions.new(@ui, @ttt_board, @player, @easy_ai, @hard_ai)
   end
 
   it "should receive the player number" do

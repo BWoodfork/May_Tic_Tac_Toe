@@ -1,6 +1,6 @@
 require 'board'
 
-class TicTacToeRules < Board
+class TicTacToeBoard < Board
   class InvalidPiece < Exception ; end
 
   attr_reader :x_mark, :o_mark
