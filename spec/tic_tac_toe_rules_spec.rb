@@ -151,20 +151,8 @@ describe TicTacToeRules do
       @board.fill_space(0, "X")
       @board.token_that_is_up.should == "O"
     end
-
-    it "should return X if it is not X's turn" do
-      @board.fill_space(0, "X")
-
-      @board.opponent_token.should == "X"
-    end
   end
-
-  context "#duplicate board" do
-    it "should generate a duplicate of the board" do
-      @board.duplicate_board(@board).object_id.should_not == @board.object_id
-    end
-  end
-
+  
    context "return empty spaces" do
     it "should return empty spaces" do
       @board.fill_space(0, "X")

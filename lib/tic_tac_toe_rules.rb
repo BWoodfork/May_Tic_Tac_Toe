@@ -50,23 +50,11 @@ class TicTacToeRules < Board
     empty_board_spots
   end
 
-  # def duplicate_board(board)
-  #   Marshal.load(Marshal.dump(board))
-  # end
-
   def token_that_is_up
     if spaces.compact.size.even?
       @x_mark
     else
       @o_mark
-    end
-  end
-
-  def opponent_token
-    if spaces.compact.size.even?
-      @o_mark
-    else
-      @x_mark
     end
   end
 

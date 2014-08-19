@@ -1,19 +1,15 @@
 class EasyAI
   def initialize(board)
     @board = board
-    @token = "O"
   end
 
   def get_spot_number
     @board.spaces.find_index { |space| space.nil? }
   end
 
-  def pick_a_spot
+  def make_move
     move = get_spot_number
-    make_move(move)
-  end
 
-  def make_move(move)
-    @board.fill_space(move, @token)
+    @board.fill_space(move, @board.token_that_is_up)
   end
 end

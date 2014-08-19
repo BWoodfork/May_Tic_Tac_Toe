@@ -3,7 +3,7 @@ class HardAI
     @board = board
   end
 
-  def make_move(board)
+  def make_move
     fake_board = @board
     move = minimax(fake_board)
 

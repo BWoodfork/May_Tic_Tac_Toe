@@ -16,6 +16,7 @@ describe EasyAI do
     @board.fill_space(1, "O")
     @board.fill_space(2, "O")
     @board.fill_space(3, "O")
+    
     @ai.get_spot_number.should == 4
   end  
 end

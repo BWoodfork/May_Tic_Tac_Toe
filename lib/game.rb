@@ -1,17 +1,17 @@
 class Game
   attr_reader :turns_taken
 
-  def initialize(board, ui, factory, easy_ai, hard_ai)
+  def initialize(board, ui, options, easy_ai, hard_ai)
     @board = board
     @ui = ui
-    @factory = factory
+    @options = options
     @easy_ai = easy_ai
-    @turns_taken = 0
     @hard_ai = hard_ai
+    @turns_taken = 0
   end
 
   def run
-    @factory.setup_players
+    @options.setup_players
 
     while !@board.game_over?
       @ui.print_board(@board)
@@ -24,16 +24,12 @@ class Game
     end
 
     @ui.print_board(@board)
-
-    if @board.winner.nil?
-      @ui.send_message "Nobody wins this game"
-    else
-      @ui.send_message "#{@board.winner} is the winner"
-    end
+    
+    @board.tie_game? ? @ui.nobody_wins_message : @ui.get_winning_player
   end
 
   def current_player
-    @factory.find_players[player_that_is_up]
+    @options.find_players[player_that_is_up]
   end
 
   def take_turn
@@ -43,11 +39,11 @@ class Game
   def make_move
     if current_player.class == Player
       move = @ui.receive_message.to_i
-      @board.fill_space(move, current_player.token)
+      @board.fill_space(move, @board.token_that_is_up)
     elsif current_player.class == EasyAI
-      @easy_ai.pick_a_spot
+      @easy_ai.make_move
     elsif current_player.class == HardAI
-      @hard_ai.make_move(@board)
+      @hard_ai.make_move
     end
   end
 
